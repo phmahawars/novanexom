@@ -16,16 +16,14 @@ export const About = () => {
                   data-aos="fade-up"
                   data-aos-delay="300"
                 >
-                  How We Measure  <span className="theme-color-text">Digital </span>
-                  <br />
-                  Performance
+                  Welcome to <span className="theme-color-text">Novanexom  </span>
                 </h2>
 
                 <p
                   data-aos="fade-up"
                   data-aos-delay="300"
                 >
-                  Effective digital systems aren’t measured by the tools used, but by how consistently websites, applications, automation, marketing platforms, and cloud infrastructure perform as the brand expands.
+                  At Novanexom, we believe in transforming ideas into reality. As a premier IT solutions provider, we specialize in a wide array of services that empower businesses to thrive in the digital age. Our mission is to deliver innovative, tailored solutions that meet the unique needs of each client, driving success and fostering growth.
                 </p>
 
                 <div
