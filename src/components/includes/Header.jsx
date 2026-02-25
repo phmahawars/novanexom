@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Header = () => {
   return (
     <header className="header-section" id="scroll">
@@ -27,22 +29,22 @@ const Header = () => {
                     <nav id="mobile-menu">
                       <ul className="d-flex list-unstyled mb-0 gap-3">
                         <li className="has-dropdown active menu-thumb">
-                          <a href="/">Home</a>
+                          <Link to="/">Home</Link>
                         </li>
                         <li>
-                          <a href="/about">About Us</a>
+                          <Link to="/about">About Us</Link>
                         </li>
                         <li>
-                          <a href="/services">Services</a>
+                          <Link to="/services">Services</Link>
                         </li>
                         <li>
-                          <a href="/case-studies">Case Studies</a>
+                          <Link to="/case-studies">Case Studies</Link>
                         </li>
                         <li>
-                          <a href="/blog">Blog</a>
+                          <Link to="/blogs">Blogs</Link>
                         </li>
                         <li>
-                          <a href="/contact">Contact</a>
+                          <Link to="/contact">Contact</Link>
                         </li>
                       </ul>
                     </nav>
@@ -53,9 +55,9 @@ const Header = () => {
               {/* Right Side */}
               <div className="header-right d-flex justify-content-end align-items-center gap-3">
                 {/* Contact button - Hidden on small screens */}
-                <a href="/contact" className="theme-btn d-none d-md-block">
+                <Link to="/contact" className="theme-btn d-none d-md-block">
                   Contact Us
-                </a>
+                </Link>
 
                 {/* Hamburger - Visible only on mobile/tablet */}
                 <div className="header__hamburger d-block d-xl-none">

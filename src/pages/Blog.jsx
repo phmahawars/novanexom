@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Breadcrumb } from '../components/includes/Breadcrumb'
 import { Link } from 'react-router-dom'
 import { getAllBlogs } from "../api/blogService";
@@ -21,7 +21,7 @@ export const Blog = () => {
     fetchBlogs();
   }, []);
 
-  if (loading) return <h2>Loading blogs...</h2>
+  // if (loading) return <h2>Loading blogs...</h2>
 
   return (
     <>
