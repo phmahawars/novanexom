@@ -1,10 +1,119 @@
-import { Link } from "react-router-dom";
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { Breadcrumb } from "../components/includes/Breadcrumb";
+import { getBlogById, getBlogs, submitContactForm } from "../lib/api";
 
 export default function BlogDetails() {
+  const { slug } = useParams();
+  const [blog, setBlog] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [recentBlogs, setRecentBlogs] = useState([]);
+  const [formLoading, setFormLoading] = useState(false);
+  const [formMessage, setFormMessage] = useState("");
+
+  useEffect(() => {
+    fetchBlogDetail();
+    fetchRecentBlogs();
+  }, [slug]);
+
+  const fetchBlogDetail = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      // Try to fetch by ID first (if slug is numeric)
+      let response;
+      if (!isNaN(slug)) {
+        response = await getBlogById(slug);
+      } else {
+        // If slug is not numeric, we need to fetch all blogs and find by slug
+        const listResponse = await getBlogs(1, 100);
+        if (listResponse.status && listResponse.data && listResponse.data.data) {
+          const foundBlog = listResponse.data.data.find(b => b.slug === slug);
+          if (foundBlog) {
+            response = { status: true, data: foundBlog };
+          } else {
+            throw new Error("Blog not found");
+          }
+        }
+      }
+
+      if (response && response.status && response.data) {
+        setBlog(response.data);
+      }
+    } catch (err) {
+      setError("Failed to load blog details");
+      console.error("Error fetching blog:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchRecentBlogs = async () => {
+    try {
+      const response = await getBlogs(1, 10);
+      if (response.status && response.data && response.data.data) {
+        setRecentBlogs(response.data.data.slice(0, 3));
+      }
+    } catch (err) {
+      console.error("Error fetching recent blogs:", err);
+    }
+  };
+
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A";
+    try {
+      return new Date(dateString).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+    } catch (e) {
+      return dateString;
+    }
+  };
+
+
+  if (loading) {
+    return (
+      <>
+        <Breadcrumb title={"Blog Detail"} />
+        <div className="blog blog-page fix">
+          <div className="container">
+            <div className="text-center py-5">
+              <div className="spinner-border" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+              <p className="mt-3">Loading blog...</p>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  if (error || !blog) {
+    return (
+      <>
+        <Breadcrumb title={"Blog Detail"} />
+        <div className="blog blog-page fix">
+          <div className="container">
+            <div className="alert alert-danger" role="alert">
+              {error || "Blog not found"}
+            </div>
+            <Link to="/blogs" className="btn btn-primary mt-3">
+              <i className="fa-solid fa-arrow-left"></i> Back to Blogs
+            </Link>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
-      <Breadcrumb title={"Blog Detail"} />
+      <Breadcrumb title={blog.title || "Blog Detail"} />
       <div className="blog blog-page fix">
         <div className="container">
           <div className="row">
@@ -14,151 +123,74 @@ export default function BlogDetails() {
                 <div className="single-blog-post style2">
                   <div className="post-featured-thumb">
                     <img
-                      src="/assets/images/blog/blogThumb1_2.png"
-                      alt="thumb"
+                      src={blog.image || "/assets/images/blog/blogThumb1_2.png"}
+                      alt={blog.title}
+                      onError={(e) => {
+                        e.target.src = "/assets/images/blog/blogThumb1_2.png";
+                      }}
                     />
                     <div className="content-date">
-                      <h4>31 December, 2024</h4>
+                      <h4>{formatDate(blog.created_at)}</h4>
                     </div>
                     <div className="content-meta">
                       <ul>
                         <li>
-                          <i className="fa-regular fa-user"></i> By admin
+                          <i className="fa-regular fa-user"></i> By{" "}
+                          {blog.author || "admin"}
                         </li>
                         <li>
-                          <i className="fa-regular fa-folder-open"></i> Category
+                          <i className="fa-regular fa-folder-open"></i>{" "}
+                          {blog.category?.name || "Category"}
                         </li>
                         <li>
                           <i className="fa-regular fa-comments"></i> Comments
-                          (05)
+                          (0)
                         </li>
                       </ul>
                     </div>
                   </div>
 
                   <div className="post-content">
-                    <h3>
-                      This involves the use of computers, software, and networks
-                    </h3>
-                    <p>
-                      Technology refers to the application of scientific
-                      knowledge for practical purposes, particularly in industry
-                      and everyday life.
-                    </p>
-                    <p>
-                      Business consulting involves providing expert advice and
-                      guidance to businesses to improve operations and
-                      efficiency.
-                    </p>
+                    <h3>{blog.title}</h3>
+                    {blog.excerpt && (
+                      <p>{blog.excerpt}</p>
+                    )}
+                    {blog.description && (
+                      <div dangerouslySetInnerHTML={{ __html: blog.description }} />
+                    )}
                   </div>
                 </div>
 
                 {/* Highlight */}
-                <div className="hilight-text wow fadeInUp" data-wow-delay=".8s">
-                  <p>
-                    Technology encompasses tools, machines, systems, and
-                    processes designed to solve problems and improve efficiency.
-                  </p>
-                  <h4>Stanio lainto</h4>
-                  <span>CEO</span>
-                </div>
+                {blog.author && (
+                  <div className="hilight-text wow fadeInUp" data-wow-delay=".8s">
+                    <p>
+                      {blog.excerpt || "A great piece of content by our team."}
+                    </p>
+                    <h4>{blog.author}</h4>
+                    <span>Author</span>
+                  </div>
+                )}
 
-                {/* List */}
-                <div className="content-items">
-                  <ul>
-                    <li>Push for sustainable technology</li>
-                    <li>Green energy solutions</li>
-                    <li>Wearable and intuitive interfaces</li>
-                    <li>Technology shaping daily life</li>
-                  </ul>
-                </div>
+                {/* Tags as List */}
+                {blog.tags && (
+                  <div className="content-items">
+                    <ul>
+                      {blog.tags.split(",").map((tag, index) => (
+                        <li key={index}>{tag.trim()}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
 
-              {/* Contact Form */}
-              <div className="contact-items">
-                <div className="title-area">
-                  <h2 className="title">Send Your Free Message</h2>
-                </div>
-
-                <div className="contact-content">
-                  <form className="contact-form-items" id="contact-form">
-                    <div className="row">
-                      <div className="col-lg-12">
-                        <div className="form-clt">
-                          <input
-                            type="text"
-                            name="name"
-                            id="name"
-                            placeholder="Your name"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="col-lg-6">
-                        <div className="form-clt">
-                          <input
-                            type="email"
-                            name="email"
-                            id="email"
-                            placeholder="Email"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="col-lg-6">
-                        <div className="form-clt">
-                          <input
-                            type="text"
-                            name="phone"
-                            id="phone"
-                            placeholder="Phone"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="col-lg-12">
-                        <div className="form-clt">
-                          <textarea
-                            name="message"
-                            id="message"
-                            placeholder="Message"
-                          ></textarea>
-                        </div>
-                      </div>
-
-                      <div className="col-lg-12">
-                        <button type="submit" className="gt-btn">
-                          Send Message
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
+              
             </div>
 
             {/* Sidebar */}
             <div className="col-xl-4">
               <div className="main-sidebar2">
-                {/* Search */}
-                <div
-                  className="single-sidebar-widget wow fadeInUp"
-                  data-wow-delay=".2s"
-                >
-                  <div className="search-widget-wrapper">
-                    <div className="wid-title">
-                      <h3 className="fast-title">Search</h3>
-                    </div>
-                    <div className="search-widget">
-                      <form>
-                        <input type="text" placeholder="Write Here" />
-                        <button type="submit">
-                          <i className="fa-sharp fa-light fa-magnifying-glass"></i>
-                        </button>
-                      </form>
-                    </div>
-                  </div>
-                </div>
+                
 
                 {/* Recent Posts */}
                 <div
@@ -170,45 +202,45 @@ export default function BlogDetails() {
                   </div>
 
                   <div className="recent-post-area">
-                    {[
-                      {
-                        img: "/assets/images/blog/blogPostThumb1_2.png",
-                        title: "Robots automated systems",
-                        slug: "robots-automated-systems",
-                      },
-                      {
-                        img: "/assets/images/blog/blogPostThumb1_2.png",
-                        title: "Renewable energy sources",
-                        slug: "renewable-energy-sources",
-                      },
-                      {
-                        img: "/assets/images/blog/blogPostThumb1_2.png",
-                        title: "AI and machine learning",
-                        slug: "ai-and-machine-learning",
-                      },
-                    ].map((post, index) => (
-                      <div className="recent-items" key={index}>
-                        <div className="recent-thumb">
-                          <img src={post.img} alt={post.title} />
+                    {recentBlogs.length > 0 ? (
+                      recentBlogs.map((post) => (
+                        <div className="recent-items" key={post.id}>
+                          <div className="recent-thumb">
+                            <img
+                              src={
+                                post.image ||
+                                "/assets/images/blog/blogPostThumb1_2.png"
+                              }
+                              alt={post.title}
+                              onError={(e) => {
+                                e.target.src =
+                                  "/assets/images/blog/blogPostThumb1_2.png";
+                              }}
+                            />
+                          </div>
+                          <div className="recent-content">
+                            <ul>
+                              <li>
+                                <i className="fa-regular fa-folder-open"></i>{" "}
+                                {post.category?.name || "Category"}
+                              </li>
+                            </ul>
+                            <h6>
+                              <Link to={`/blog/${post.id}`}>
+                                {post.title}
+                              </Link>
+                            </h6>
+                          </div>
                         </div>
-                        <div className="recent-content">
-                          <ul>
-                            <li>
-                              <i className="fa-regular fa-folder-open"></i>{" "}
-                              Category
-                            </li>
-                          </ul>
-                          <h6>
-                            <Link to={`/blog/${post.slug}`}>{post.title}</Link>
-                          </h6>
-                        </div>
-                      </div>
-                    ))}
+                      ))
+                    ) : (
+                      <p className="text-muted">No recent posts</p>
+                    )}
                   </div>
                 </div>
 
                 {/* Categories */}
-                <div
+                {/* <div
                   className="single-sidebar-widget wow fadeInUp"
                   data-wow-delay=".4s"
                 >
@@ -226,7 +258,9 @@ export default function BlogDetails() {
                       ].map((cat, index) => (
                         <li key={index}>
                           <Link
-                            to={`/category/${cat.toLowerCase().replace(/\s+/g, "-")}`}
+                            to={`/category/${cat
+                              .toLowerCase()
+                              .replace(/\s+/g, "-")}`}
                           >
                             {cat}
                           </Link>
@@ -234,10 +268,10 @@ export default function BlogDetails() {
                       ))}
                     </ul>
                   </div>
-                </div>
+                </div> */}
 
                 {/* Tags */}
-                <div
+                {/* <div
                   className="single-sidebar-widget wow fadeInUp mb-0"
                   data-wow-delay=".8s"
                 >
@@ -246,20 +280,33 @@ export default function BlogDetails() {
                   </div>
                   <div className="news-widget-categories">
                     <div className="tagcloud">
-                      {[
-                        "applications",
-                        "blockchain",
-                        "Analysis",
-                        "secure",
-                        "Planning",
-                      ].map((tag, index) => (
-                        <Link key={index} to={`/tag/${tag.toLowerCase()}`}>
-                          {tag}
-                        </Link>
-                      ))}
+                      {blog.tags ? (
+                        blog.tags.split(",").map((tag, index) => (
+                          <Link
+                            key={index}
+                            to={`/tag/${tag.trim().toLowerCase()}`}
+                          >
+                            {tag.trim()}
+                          </Link>
+                        ))
+                      ) : (
+                        <>
+                          {[
+                            "applications",
+                            "blockchain",
+                            "Analysis",
+                            "secure",
+                            "Planning",
+                          ].map((tag, index) => (
+                            <Link key={index} to={`/tag/${tag.toLowerCase()}`}>
+                              {tag}
+                            </Link>
+                          ))}
+                        </>
+                      )}
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

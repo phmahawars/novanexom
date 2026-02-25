@@ -1,179 +1,139 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Breadcrumb } from '../components/includes/Breadcrumb'
+import { Link } from 'react-router-dom'
+import { getServices } from '../lib/api'
 
 export const ServicePage = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [services, setServices] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  useEffect(() => {
+    fetchServices()
+  }, [])
+
+  const fetchServices = async () => {
+    setLoading(true)
+    setError(null)
+    try {
+      const response = await getServices()
+
+      if (response.status && response.data && Array.isArray(response.data)) {
+        setServices(response.data)
+        setActiveIndex(0)
+      }
+    } catch (err) {
+      setError('Failed to load services')
+      console.error('Error fetching services:', err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (loading) {
+    return (
+      <>
+        <Breadcrumb title={"Services"} />
+        <section className="service style1 section-padding pt-0">
+          <div className="service-container-wrapper style1">
+            <div className="container">
+              <div className="text-center py-5">
+                <div className="spinner-border" role="status">
+                  <span className="sr-only">Loading...</span>
+                </div>
+                <p className="mt-3">Loading services...</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </>
+    )
+  }
+
+  if (error) {
+    return (
+      <>
+        <Breadcrumb title={"Services"} />
+        <section className="service style1 section-padding pt-0">
+          <div className="service-container-wrapper style1">
+            <div className="container">
+              <div className="alert alert-danger" role="alert">
+                {error}
+              </div>
+            </div>
+          </div>
+        </section>
+      </>
+    )
+  }
+
+  if (services.length === 0) {
+    return (
+      <>
+        <Breadcrumb title={"Services"} />
+        <section className="service style1 section-padding pt-0">
+          <div className="service-container-wrapper style1">
+            <div className="container">
+              <div className="text-center py-5">
+                <p className="text-muted">No services available at the moment.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </>
+    )
+  }
+
+  const getServiceNumber = (index) => {
+    return String(index + 1).padStart(2, '0')
+  }
+
   return (
     <>
-    <Breadcrumb title={"Services"} />
-      <section className="service style1 section-padding pt-0">
+      <Breadcrumb title={"Services"} />
+      <section className="service style1 section-padding pt-0 onListingPage">
         <div className="service-container-wrapper style1">
           <div className="container">
             <div className="service_content">
-              {/* First Row */}
-              <div className="service_content_info mb-30">
-                <div
-                  className={`service_content_info_item style1 ${activeIndex === 0 ? 'active' : ''}`}
-            onMouseEnter={() => setActiveIndex(0)}
-                 
-                >
-                  <h2>01</h2>
-                  <img
-                    src="/assets/images/icon/serviceIcon1_1.svg"
-                    alt="icon"
-                  />
-                  <h3>
-                    <a href="/service-details">cybersecurity</a>
-                  </h3>
-                  <div className="content">
-                    <p>
-                      IT company that provides a seamless and intuitive
-                      experience for users. The design will focus on clear
-                      navigation IT company that provides a seamless and
-                      intuitive experience for users. The design will focus on
-                      clear navigation
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className={`service_content_info_item style1 ${activeIndex === 1 ? 'active' : ''}`}
-            onMouseEnter={() => setActiveIndex(1)}
-                 
-                >
-                  <h2>02</h2>
-                  <img
-                    src="/assets/images/icon/serviceIcon1_2.svg"
-                    alt="icon"
-                  />
-                  <h3>
-                    <a href="/service-details">cloud solutions</a>
-                  </h3>
-                  <div className="content">
-                    <p>
-                      IT company that provides a seamless and intuitive
-                      experience for users. The design will focus on clear
-                      navigation IT company that provides a seamless and
-                      intuitive experience for users. The design will focus on
-                      clear navigation
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className={`service_content_info_item style1 ${activeIndex === 2 ? 'active' : ''}`}
-            onMouseEnter={() => setActiveIndex(2)}
-                  
-                >
-                  <h2>03</h2>
-                  <img
-                    src="/assets/images/icon/serviceIcon1_3.svg"
-                    alt="icon"
-                  />
-                  <h3>
-                    <a href="/service-details">IT consulting</a>
-                  </h3>
-                  <div className="content">
-                    <p>
-                      IT company that provides a seamless and intuitive
-                      experience for users. The design will focus on clear
-                      navigation IT company that provides a seamless and
-                      intuitive experience for users. The design will focus on
-                      clear navigation
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Second Row */}
+              {/* Render all services */}
               <div className="service_content_info">
-                <div
-                  className={`service_content_info_item style1 ${activeIndex === 3 ? 'active' : ''}`}
-            onMouseEnter={() => setActiveIndex(3)}
-                  
-                >
-                  <h2>04</h2>
-                  <img
-                    src="/assets/images/icon/serviceIcon1_4.svg"
-                    alt="icon"
-                  />
-                  <h3>
-                    <a href="/service-details">Tech Consulting</a>
-                  </h3>
-                  <div className="content">
-                    <p>
-                      IT company that provides a seamless and intuitive
-                      experience for users. The design will focus on clear
-                      navigation IT company.
-                    </p>
+                {services.map((service, index) => (
+                  <div
+                    key={service.id}
+                    className={`service_content_info_item style1 ${activeIndex === index ? 'active' : ''}`}
+                    onMouseEnter={() => setActiveIndex(index)}
+                  >
+                    <h2>{getServiceNumber(index)}</h2>
+                    
+                    {/* Service Icon */}
+                    {service.service_icon && (
+                      <img
+                        src={service.service_icon}
+                        alt={service.title}
+                        onError={(e) => {
+                          e.target.style.display = 'none'
+                        }}
+                      />
+                    )}
+                    
+                    {/* Service Title */}
+                    <h3>
+                      <Link to={`/service/${service.slug}`}>
+                        {service.title}
+                      </Link>
+                    </h3>
+                    
+                    {/* Service Description */}
+                    <div className="content">
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: service.expect || 'Service description coming soon'
+                          }}
+                        />
+                    </div>
                   </div>
-                </div>
-
-                <div
-                  className={`service_content_info_item style1 ${activeIndex === 4 ? 'active' : ''}`}
-            onMouseEnter={() => setActiveIndex(4)}
-                  
-                >
-                  <h2>05</h2>
-                  <img
-                    src="/assets/images/icon/serviceIcon1_5.svg"
-                    alt="icon"
-                  />
-                  <h3>
-                    <a href="/service-details">Sphere Solutions</a>
-                  </h3>
-                  <div className="content">
-                    <p>
-                      IT company that provides a seamless and intuitive
-                      experience for users. The design will focus on clear
-                      navigation IT company.
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className={`service_content_info_item style1 ${activeIndex === 5 ? 'active' : ''}`}
-            onMouseEnter={() => setActiveIndex(5)}
-                  
-                >
-                  <h2>06</h2>
-                  <img
-                    src="/assets/images/icon/serviceIcon1_6.svg"
-                    alt="icon"
-                  />
-                  <h3>
-                    <a href="/service-details">Path Technologies</a>
-                  </h3>
-                  <div className="content">
-                    <p>
-                      IT company that provides a seamless and intuitive
-                      experience for users. The design will focus on clear
-                      navigation IT company.
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className={`service_content_info_item style1 ${activeIndex === 6 ? 'active' : ''}`}
-            onMouseEnter={() => setActiveIndex(6)}
-                  
-                >
-                  <h2>07</h2>
-                  <img
-                    src="/assets/images/icon/serviceIcon1_7.svg"
-                    alt="icon"
-                  />
-                  <h3>
-                    <a href="/service-details">Digital Systems</a>
-                  </h3>
-                  <div className="content">
-                    <p>
-                      IT company that provides a seamless and intuitive
-                      experience for users. The design will focus on clear
-                      navigation IT company.
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -182,3 +142,5 @@ export const ServicePage = () => {
     </>
   )
 }
+
+export default ServicePage
