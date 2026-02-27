@@ -1,27 +1,55 @@
 import React, { useEffect, useState } from 'react'
 import { Breadcrumb } from '../components/includes/Breadcrumb'
 import { Link } from 'react-router-dom'
-import { getAllBlogs } from "../api/blogService";
+import { getBlogs } from '../lib/api'
 
 export const Blog = () => {
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [blogs, setBlogs] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [lastPage, setLastPage] = useState(1)
+
   useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const data = await getAllBlogs();
-        setBlogs(data.blogs);
-      } catch (err) {
-        console.error("Error fetching blogs:", err);
-      } finally {
-        setLoading(false);
+    fetchBlogs(currentPage)
+  }, [currentPage])
+
+  const fetchBlogs = async (page) => {
+    setLoading(true)
+    setError(null)
+    try {
+      const response = await getBlogs(page, 5)
+
+      if (response.status && response.data && response.data.data) {
+        setBlogs(response.data.data)
+        setLastPage(response.data.last_page || 1)
       }
-    };
+    } catch (err) {
+      setError('Failed to load blogs')
+      console.error('Error fetching blogs:', err)
+    } finally {
+      setLoading(false)
+    }
+  }
 
-    fetchBlogs();
-  }, []);
+  const formatDate = (dateString) => {
+    if (!dateString) return 'N/A'
+    try {
+      return new Date(dateString).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+    // eslint-disable-next-line no-unused-vars
+    } catch (e) {
+      return dateString
+    }
+  }
 
-  // if (loading) return <h2>Loading blogs...</h2>
+  const handlePageChange = (page) => {
+    setCurrentPage(page)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   return (
     <>
@@ -34,145 +62,123 @@ export const Blog = () => {
             <div className="col-xl-8">
               <div className="blog-post-details">
 
-                {/* Single Post */}
-                <div className="single-blog-post">
-                  <div className="post-featured-thumb">
-                    <img src="/assets/images/blog/blogThumb1_2.png" alt="thumb" />
-                    <div className="content-date">
-                      <h4>31 December, 2024</h4>
+                {/* Loading State */}
+                {loading && (
+                  <div className="text-center py-5">
+                    <div className="spinner-border" role="status">
+                      <span className="sr-only">Loading...</span>
                     </div>
-                    <div className="content-meta">
-                      <ul>
-                        <li><i className="fa-regular fa-user"></i> By admin</li>
-                        <li><i className="fa-regular fa-folder-open"></i> Category</li>
-                        <li><i className="fa-regular fa-comments"></i> Comments (05)</li>
-                      </ul>
-                    </div>
+                    <p className="mt-3">Loading blogs...</p>
                   </div>
+                )}
 
-                  <div className="post-content">
-                    <h3>
-                      <Link to="/blog/web-technology">
-                        This involves the use of computers, software, and networks
-                      </Link>
-                    </h3>
-                    <p>
-                      Technology refers to the application of scientific knowledge for
-                      practical purposes, particularly in industry and everyday life.
-                    </p>
-                    <Link to="/blog/web-technology">
-                      Read More <i className="fa-solid fa-arrow-right"></i>
-                    </Link>
+                {/* Error State */}
+                {error && !loading && (
+                  <div className="alert alert-danger" role="alert">
+                    {error}
                   </div>
-                </div>
+                )}
 
-                {/* Single Post */}
-                <div className="single-blog-post">
-                  <div className="post-featured-thumb">
-                    <img src="/assets/images/blog/blogThumb1_2.png" alt="thumb" />
-                    <div className="content-date">
-                      <h4>31 December, 2024</h4>
-                    </div>
-                    <div className="content-meta">
-                      <ul>
-                        <li><i className="fa-regular fa-user"></i> By admin</li>
-                        <li><i className="fa-regular fa-folder-open"></i> Category</li>
-                        <li><i className="fa-regular fa-comments"></i> Comments (05)</li>
-                      </ul>
-                    </div>
-                  </div>
+                {/* Blog Posts */}
+                {!loading && blogs.length > 0 && (
+                  blogs.map((blog) => (
+                    
+                    
+                    <div className="single-blog-post" key={blog.id}>
+                      <div className="post-featured-thumb">
+                        <Link to={`/blog/${blog.slug}`}>
+                        <img 
+                          src={blog.image || '/assets/images/blog/blogThumb1_2.png'} 
+                          alt={blog.title}
+                          
+                        />
+                        </Link>
+                        <div className="content-date">
+                          <h4>{formatDate(blog.created_at)}</h4>
+                        </div>
+                        <div className="content-meta">
+                          <ul>
+                            <li><i className="fa-regular fa-user"></i> {blog.author || 'admin'}</li>
+                            <li><i className="fa-regular fa-folder-open"></i> {blog.category?.name || 'Category'}</li>
+                            <li><i className="fa-regular fa-comments"></i> Comments (0)</li>
+                          </ul>
+                        </div>
+                      </div>
 
-                  <div className="post-content">
-                    <h3>
-                      <Link to="/blog/web-technology">
-                        This involves the use of computers, software, and networks
-                      </Link>
-                    </h3>
-                    <p>
-                      Technology refers to the application of scientific knowledge for
-                      practical purposes, particularly in industry and everyday life.
-                    </p>
-                    <Link to="/blog/web-technology">
-                      Read More <i className="fa-solid fa-arrow-right"></i>
-                    </Link>
-                  </div>
-                </div>
-
-                {/* Repeat Post */}
-                <div className="single-blog-post">
-                  <div className="post-featured-thumb">
-                    <img src="/assets/images/blog/blogThumb1_2.png" alt="thumb" />
-                    <div className="content-date">
-                      <h4>31 December, 2024</h4>
+                      <div className="post-content">
+                        <h3>
+                          <Link to={`/blog/${blog.slug}`}>
+                            {blog.title}
+                          </Link>
+                        </h3>
+                        <p>
+                          {blog.excerpt || blog.description?.replace(/<[^>]*>/g, '').substring(0, 150) + '...'}
+                        </p>
+                        <Link to={`/blog/${blog.slug}`}>
+                          Read More <i className="fa-solid fa-arrow-right"></i>
+                        </Link>
+                      </div>
                     </div>
-                    <div className="content-meta">
-                      <ul>
-                        <li><i className="fa-regular fa-user"></i> By admin</li>
-                        <li><i className="fa-regular fa-folder-open"></i> Category</li>
-                        <li><i className="fa-regular fa-comments"></i> Comments (05)</li>
-                      </ul>
-                    </div>
-                  </div>
+                  ))
+                )}
 
-                  <div className="post-content">
-                    <h3>
-                      <Link to="/blog/data-processing">
-                        Processing and distributing data
-                      </Link>
-                    </h3>
-                    <p>
-                      Technology refers to the application of scientific knowledge for
-                      practical purposes.
-                    </p>
-                    <Link to="/blog/data-processing">
-                      Read More <i className="fa-solid fa-arrow-right"></i>
-                    </Link>
+                {/* No Blogs State */}
+                {!loading && blogs.length === 0 && !error && (
+                  <div className="text-center py-5">
+                    <p className="text-muted">No blogs available at the moment.</p>
                   </div>
-                </div>
+                )}
 
               </div>
 
               {/* Pagination */}
-              <div className="pagination_area style1">
-                <ul className="pagination">
-                  <li className="page-item">
-                    <Link className="page-link" to="#">1</Link>
-                  </li>
-                  <li className="page-item">
-                    <Link className="page-link" to="#">2</Link>
-                  </li>
-                  <li className="page-item">
-                    <Link className="page-link" to="#">3</Link>
-                  </li>
-                  <li className="page-item">
-                    <Link className="page-link" to="#">
-                      &raquo;
-                    </Link>
-                  </li>
-                </ul>
-              </div>
+              {!loading && lastPage > 1 && (
+                <div className="pagination_area style1">
+                  <ul className="pagination">
+                    {/* Previous Button */}
+                    <li className="page-item">
+                      <button 
+                        className="page-link" 
+                        onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        style={{ opacity: currentPage === 1 ? 0.5 : 1, cursor: currentPage === 1 ? 'not-allowed' : 'pointer' }}
+                      >
+                        &laquo; Previous
+                      </button>
+                    </li>
+
+                    {/* Page Numbers */}
+                    {Array.from({ length: lastPage }, (_, i) => i + 1).map((page) => (
+                      <li key={page} className={`page-item ${page === currentPage ? 'active' : ''}`}>
+                        <button 
+                          className="page-link" 
+                          onClick={() => handlePageChange(page)}
+                          style={{ fontWeight: page === currentPage ? 'bold' : 'normal' }}
+                        >
+                          {page}
+                        </button>
+                      </li>
+                    ))}
+
+                    {/* Next Button */}
+                    <li className="page-item">
+                      <button 
+                        className="page-link" 
+                        onClick={() => currentPage < lastPage && handlePageChange(currentPage + 1)}
+                        disabled={currentPage === lastPage}
+                        style={{ opacity: currentPage === lastPage ? 0.5 : 1, cursor: currentPage === lastPage ? 'not-allowed' : 'pointer' }}
+                      >
+                        Next &raquo;
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              )}
             </div>
 
             {/* Sidebar */}
             <div className="col-xl-4">
               <div className="main-sidebar2">
-
-                {/* Search */}
-                <div className="single-sidebar-widget wow fadeInUp" data-wow-delay=".2s">
-                  <div className="search-widget-wrapper">
-                    <div className="wid-title">
-                      <h3 className="fast-title">Search</h3>
-                    </div>
-                    <div className="search-widget">
-                      <form>
-                        <input type="text" placeholder="Write Here" />
-                        <button type="submit">
-                          <i className="fa-sharp fa-light fa-magnifying-glass"></i>
-                        </button>
-                      </form>
-                    </div>
-                  </div>
-                </div>
 
                 {/* Recent Posts */}
                 <div className="single-sidebar-widget wow fadeInUp" data-wow-delay=".6s">
@@ -181,46 +187,36 @@ export const Blog = () => {
                   </div>
 
                   <div className="recent-post-area">
-                    {[
-                      {
-                        img: "/assets/images/blog/blogPostThumb1_2.png",
-                        title: "Robots automated systems",
-                        slug: "robots-automated-systems",
-                      },
-                      {
-                        img: "/assets/images/blog/blogPostThumb1_2.png",
-                        title: "Renewable energy sources",
-                        slug: "renewable-energy-sources",
-                      },
-                      {
-                        img: "/assets/images/blog/blogPostThumb1_2.png",
-                        title: "AI and machine learning",
-                        slug: "ai-and-machine-learning",
-                      },
-                    ].map((post, index) => (
-                      <div className="recent-items" key={index}>
-                        <div className="recent-thumb">
-                          <img src={post.img} alt={post.title} />
+                    {!loading && blogs.length > 0 && (
+                      blogs.slice(0, 3).map((blog) => (
+                        <div className="recent-items" key={blog.id}>
+                          <div className="recent-thumb">
+                            <img 
+                              src={blog.image || '/assets/images/blog/blogPostThumb1_2.png'} 
+                              alt={blog.title}
+                             
+                            />
+                          </div>
+                          <div className="recent-content">
+                            <ul>
+                              <li>
+                                <i className="fa-regular fa-folder-open"></i> {blog.category?.name || 'Category'}
+                              </li>
+                            </ul>
+                            <h6>
+                              <Link to={`/blog/${blog.id}`}>
+                                {blog.title}
+                              </Link>
+                            </h6>
+                          </div>
                         </div>
-                        <div className="recent-content">
-                          <ul>
-                            <li>
-                              <i className="fa-regular fa-folder-open"></i> Category
-                            </li>
-                          </ul>
-                          <h6>
-                            <Link to={`/blog/${post.slug}`}>
-                              {post.title}
-                            </Link>
-                          </h6>
-                        </div>
-                      </div>
-                    ))}
+                      ))
+                    )}
                   </div>
                 </div>
 
                 {/* Categories */}
-                <div className="single-sidebar-widget wow fadeInUp" data-wow-delay=".4s">
+                {/* <div className="single-sidebar-widget wow fadeInUp" data-wow-delay=".4s">
                   <div className="wid-title">
                     <h3>Categories</h3>
                   </div>
@@ -241,25 +237,34 @@ export const Blog = () => {
                       ))}
                     </ul>
                   </div>
-                </div>
+                </div> */}
 
                 {/* Tags */}
-                <div className="single-sidebar-widget wow fadeInUp mb-0" data-wow-delay=".8s">
+                {/* <div className="single-sidebar-widget wow fadeInUp mb-0" data-wow-delay=".8s">
                   <div className="wid-title">
                     <h3>Tags</h3>
                   </div>
                   <div className="news-widget-categories">
                     <div className="tagcloud">
-                      {["applications", "blockchain", "Analysis", "secure", "Planning"].map(
-                        (tag, index) => (
-                          <Link key={index} to={`/tag/${tag.toLowerCase()}`}>
-                            {tag}
+                      {!loading && blogs.length > 0 && blogs[0]?.tags && (
+                        blogs[0].tags.split(',').map((tag, index) => (
+                          <Link key={index} to={`/tag/${tag.trim().toLowerCase()}`}>
+                            {tag.trim()}
                           </Link>
+                        ))
+                      )}
+                      {(!blogs[0]?.tags || loading) && (
+                        ["applications", "blockchain", "Analysis", "secure", "Planning"].map(
+                          (tag, index) => (
+                            <Link key={index} to={`/tag/${tag.toLowerCase()}`}>
+                              {tag}
+                            </Link>
+                          )
                         )
                       )}
                     </div>
                   </div>
-                </div>
+                </div> */}
 
               </div>
             </div>

@@ -31,11 +31,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/services" element={<ServicePage />} />
-        <Route path="/service-details" element={<ServiceDetail />} />
+        <Route path="/service/:slug" element={<ServiceDetail />} />
         <Route path="/case-studies" element={<CaseStudies />} />
         <Route path="/case-study-details" element={<CaseStudyDetail />} />
         <Route path="/blogs" element={<Blog />} />
-        <Route path="/blog-detail" element={<BlogDetails />} />
+        <Route path="/blog/:slug" element={<BlogDetails />} />
         <Route path="/contact" element={<ContactPage />} />
       </Route>
 
