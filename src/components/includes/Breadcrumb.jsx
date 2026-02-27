@@ -6,7 +6,7 @@ export const Breadcrumb = ({title}) => {
       <div className="container">
         <div className="breadcumb-wrapper">
           <div className="breadcumb-bg">
-            <img src="./assets/images/shape/breadcumbBg1_1.png" alt="shape" />
+            <img src="/assets/images/shape/breadcumbBg1_1.png" alt="shape" />
           </div>
 
           <div className="page-heading">

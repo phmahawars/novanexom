@@ -88,7 +88,8 @@ export const Blog = () => {
                       <div className="post-featured-thumb">
                         <Link to={`/blog/${blog.slug}`}>
                         <img 
-                          src={blog.image || '/assets/images/blog/blogThumb1_2.png'} 
+                        className='w-100'
+                          src={blog.image_url || '/assets/images/blog/blogThumb1_2.png'} 
                           alt={blog.title}
                           
                         />
@@ -98,9 +99,8 @@ export const Blog = () => {
                         </div>
                         <div className="content-meta">
                           <ul>
-                            <li><i className="fa-regular fa-user"></i> {blog.author || 'admin'}</li>
+                            <li className='me-3'><i className="fa-regular fa-user"></i> {blog.author || 'admin'}</li>
                             <li><i className="fa-regular fa-folder-open"></i> {blog.category?.name || 'Category'}</li>
-                            <li><i className="fa-regular fa-comments"></i> Comments (0)</li>
                           </ul>
                         </div>
                       </div>
@@ -192,7 +192,8 @@ export const Blog = () => {
                         <div className="recent-items" key={blog.id}>
                           <div className="recent-thumb">
                             <img 
-                              src={blog.image || '/assets/images/blog/blogPostThumb1_2.png'} 
+                            className='w-100'
+                              src={blog.image_url || '/assets/images/blog/blogPostThumb1_2.png'} 
                               alt={blog.title}
                              
                             />
@@ -204,7 +205,7 @@ export const Blog = () => {
                               </li>
                             </ul>
                             <h6>
-                              <Link to={`/blog/${blog.id}`}>
+                              <Link to={`/blog/${blog.slug}`}>
                                 {blog.title}
                               </Link>
                             </h6>

@@ -123,7 +123,8 @@ export default function BlogDetails() {
                 <div className="single-blog-post style2">
                   <div className="post-featured-thumb">
                     <img
-                      src={blog.image || "/assets/images/blog/blogThumb1_2.png"}
+                    className="w-100"
+                      src={blog.image_url || "/assets/images/blog/blogThumb1_2.png"}
                       alt={blog.title}
                       onError={(e) => {
                         e.target.src = "/assets/images/blog/blogThumb1_2.png";
@@ -134,17 +135,13 @@ export default function BlogDetails() {
                     </div>
                     <div className="content-meta">
                       <ul>
-                        <li>
+                        <li className="me-3">
                           <i className="fa-regular fa-user"></i> By{" "}
                           {blog.author || "admin"}
                         </li>
                         <li>
                           <i className="fa-regular fa-folder-open"></i>{" "}
                           {blog.category?.name || "Category"}
-                        </li>
-                        <li>
-                          <i className="fa-regular fa-comments"></i> Comments
-                          (0)
                         </li>
                       </ul>
                     </div>
@@ -207,10 +204,8 @@ export default function BlogDetails() {
                         <div className="recent-items" key={post.id}>
                           <div className="recent-thumb">
                             <img
-                              src={
-                                post.image ||
-                                "/assets/images/blog/blogPostThumb1_2.png"
-                              }
+                              className='w-100'
+                              src={post.image_url || "/assets/images/blog/blogPostThumb1_2.png"}
                               alt={post.title}
                               onError={(e) => {
                                 e.target.src =
