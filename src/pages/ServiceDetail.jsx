@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Breadcrumb } from '../components/includes/Breadcrumb'
 import { getServiceById, getServices } from '../lib/api'
+import { Accordion } from 'react-bootstrap'
 
 export const ServiceDetail = () => {
   const { slug } = useParams()
@@ -251,88 +252,75 @@ export const ServiceDetail = () => {
       {/* FAQ SECTION */}
       {faqs && faqs.length > 0 && (
         <section className="faq-sectionn section-padding pt-0 fix">
-          <div className="faq-container-wrapper">
-            <div className="container">
+  <div className="faq-container-wrapper">
+    <div className="container">
 
-              <div className="section-title style3">
-                <h2
-                  className="title mb-20"
-                  data-aos="fade-up"
-                  data-aos-delay="300"
-                >
-                  Empower your <span>growth</span> with technology
-                </h2>
+      <div className="section-title style3">
+        <h2
+          className="title mb-20"
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
+          Empower your <span>growth</span> with technology
+        </h2>
 
-                <p
-                  data-aos="fade-up"
-                  data-aos-delay="600"
-                >
-                  IT company that provides a seamless and intuitive experience for users.
-                  The design will focus on clear navigation, easy access to information
-                </p>
-              </div>
+        <p data-aos="fade-up" data-aos-delay="600">
+          IT company that provides a seamless and intuitive experience for users.
+          The design will focus on clear navigation, easy access to information
+        </p>
+      </div>
 
-              <div className="row gy-5">
-                <div className="col-xl-5">
-                  <div className="content-thumb text-center">
-                    <img
-                      src="/assets/images/faq/faqThumb.png"
-                      alt="faq"
-                    />
-                  </div>
-                </div>
+      <div className="row gy-5">
 
-                <div className="col-xl-7">
-                  <div className="faq-content">
-                    <div className="faq-accordion">
-                      <div className="accordion" id="accordion">
+        {/* Left Image */}
+        <div className="col-xl-5">
+          <div className="content-thumb text-center">
+            <img
+              src="/assets/images/faq/faqThumb.png"
+              alt="faq"
+            />
+          </div>
+        </div>
 
-                        {faqs.map((faq, index) => {
-                          const faqId = `faq${index + 1}`
-                          const delay = String(300 + (index * 200))
-                          
-                          return (
-                            <div
-                              key={index}
-                              className="accordion-item mb-3"
-                              data-aos="fade-up"
-                              data-aos-delay={delay}
-                            >
-                              <h5 className="accordion-header">
-                                <button
-                                  className="accordion-button collapsed"
-                                  type="button"
-                                  data-bs-toggle="collapse"
-                                  data-bs-target={`#${faqId}`}
-                                  aria-expanded="false"
-                                  aria-controls={faqId}
-                                >
-                                  {faq.question || `Question ${index + 1}`}
-                                </button>
-                              </h5>
+        {/* FAQ Accordion */}
+        <div className="col-xl-7">
+          <div className="faq-content">
+            <div className="faq-accordion">
 
-                              <div
-                                id={faqId}
-                                className="accordion-collapse collapse"
-                                data-bs-parent="#accordion"
-                              >
-                                <div className="accordion-body">
-                                  {faq.answer || 'Answer coming soon'}
-                                </div>
-                              </div>
-                            </div>
-                          )
-                        })}
+              <Accordion>
 
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                {faqs.map((faq, index) => {
+                  const delay = String(300 + index * 200);
 
-              </div>
+                  return (
+                    <Accordion.Item
+                      eventKey={index.toString()}
+                      key={index}
+                      className="mb-3"
+                      data-aos="fade-up"
+                      data-aos-delay={delay}
+                    >
+                      <Accordion.Header>
+                        {faq.question || `Question ${index + 1}`}
+                      </Accordion.Header>
+
+                      <Accordion.Body>
+                        {faq.answer || "Answer coming soon"}
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  );
+                })}
+
+              </Accordion>
+
             </div>
           </div>
-        </section>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
       )}
     </>
   )
