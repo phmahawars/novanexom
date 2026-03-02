@@ -81,6 +81,27 @@ export const getServiceById = async (slug) => {
   }
 };
 
+// ==================== SERVICES API ====================
+
+export const getCaseStudies = async (page = 1, limit = 10) => {
+  try {
+    const response = await api.get(`/case-studies?page=${page}&limit=${limit}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching services:', error);
+    throw error;
+  }
+};
+
+export const getCaseStudySlug = async (slug) => {
+  try {
+    const response = await api.get(`/case-studies/${slug}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching service:', error);
+    throw error;
+  }
+};
 // ==================== CONTACT FORM ====================
 
 export const submitContactForm = async (formData) => {

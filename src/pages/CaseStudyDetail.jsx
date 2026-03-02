@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Breadcrumb } from "../components/includes/Breadcrumb";
-import { getCaseStudy } from "../lib/api";
 import { Accordion } from "react-bootstrap";
+import { getCaseStudySlug } from "../lib/api";
 
 export const CaseStudyDetail = () => {
   const { slug } = useParams();
@@ -18,7 +18,7 @@ export const CaseStudyDetail = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await getCaseStudy(slug);
+      const response = await getCaseStudySlug(slug);
 
       if (response.status && response.data) {
         setCaseStudy(response.data);
