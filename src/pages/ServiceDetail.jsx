@@ -231,11 +231,7 @@ export const ServiceDetail = () => {
 
                 <div className="contact-text">
                   <div className="icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="38" height="39" viewBox="0 0 38 39" fill="none">
-                      <path d="M29.3379 2V10.649" stroke="#3C2BFF" strokeWidth="2.65831" strokeLinecap="round" />
-                      <path d="M36.2559 2V10.649" stroke="#3C2BFF" strokeWidth="2.65831" strokeLinecap="round" />
-                      <path d="M30.8745 25.4796..." stroke="#3C2BFF" strokeWidth="2.65831" strokeLinecap="round" />
-                    </svg>
+                    <i class="fa-solid fa-phone"></i>
                   </div>
 
                   <h4>
