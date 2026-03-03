@@ -273,7 +273,7 @@ export const CaseStudyDetail = () => {
                       data-aos-delay="600"
                     >
                       <img
-                        src={caseStudy.project_image}
+                        src={caseStudy.project_image_url}
                         alt={caseStudy.title}
 
                       />
