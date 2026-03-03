@@ -46,10 +46,10 @@ export const CaseStudyDetail = () => {
 
   const renderRating = (rating) => {
     if (!rating) return null;
-    
+
     // Handle rating as number or string
     const ratingValue = typeof rating === "string" ? parseInt(rating) : rating;
-    
+
     if (isNaN(ratingValue)) return null;
 
     return (
@@ -152,21 +152,21 @@ export const CaseStudyDetail = () => {
                   <h2 data-aos="fade-up" data-aos-delay="300">
                     {caseStudy.title}
                   </h2>
-                  
+
                   {caseStudy.content && (
                     <>
-                    <div
-                      data-aos="fade-up" data-aos-delay="400"
-                                dangerouslySetInnerHTML={{
-                                  __html: caseStudy.content || 'Case Study description coming soon'
-                                }}
-                              />
-                      
+                      <div
+                        data-aos="fade-up" data-aos-delay="400"
+                        dangerouslySetInnerHTML={{
+                          __html: caseStudy.content || 'Case Study description coming soon'
+                        }}
+                      />
+
                     </>
                   )}
 
                   {/* Project Info Content (as list if available) */}
-                  
+
                 </div>
               </div>
             </div>
@@ -174,122 +174,125 @@ export const CaseStudyDetail = () => {
 
           {/* Section 2: Project Information */}
           {caseStudy.project_info && (
-          <div className="project-details-info">
-            <div className="row gx-60 gy-6">
-              {/* Project Details */}
-              <div className="col-xl-8">
-                <div className="project-details-content">
-                 
-                  
-                      <h3 data-aos="fade-up" data-aos-delay="300">
-                        Project Information
-                      </h3>
-                      <div data-aos="fade-up" data-aos-delay="600">
+            <div className="project-details-info">
+              <div className="row gx-60 gy-6">
+                {/* Project Details */}
+                <div className="col-xl-8">
+                  <div className="project-details-content">
+
+
+                    <h3 data-aos="fade-up" data-aos-delay="300">
+                      Project Information
+                    </h3>
+                    <div data-aos="fade-up" data-aos-delay="600">
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: caseStudy.project_info,
+                        }}
+                      />
+                    </div>
+
+
+                    <div className="items-wrapper">
+                      {/* Category */}
+                      {caseStudy.category_name && (
                         <div
-                          dangerouslySetInnerHTML={{
-                            __html: caseStudy.project_info,
-                          }}
-                        />
-                      </div>
-                  
+                          className="single-items"
+                          data-aos="fade-up"
+                          data-aos-delay="300"
+                        >
+                          <h4>
+                            Category: <span>{caseStudy.category_name}</span>
+                          </h4>
+                        </div>
+                      )}
 
-                  <div className="items-wrapper">
-                    {/* Category */}
-                    {caseStudy.category_name && (
-                      <div
-                        className="single-items"
-                        data-aos="fade-up"
-                        data-aos-delay="300"
-                      >
-                        <h4>
-                          Category: <span>{caseStudy.category_name}</span>
-                        </h4>
-                      </div>
-                    )}
+                      {/* Customer */}
+                      {caseStudy.customer && (
+                        <div
+                          className="single-items"
+                          data-aos="fade-up"
+                          data-aos-delay="400"
+                        >
+                          <h4>
+                            Customer: <span>{caseStudy.customer}</span>
+                          </h4>
+                        </div>
+                      )}
 
-                    {/* Customer */}
-                    {caseStudy.customer && (
-                      <div
-                        className="single-items"
-                        data-aos="fade-up"
-                        data-aos-delay="400"
-                      >
-                        <h4>
-                          Customer: <span>{caseStudy.customer}</span>
-                        </h4>
-                      </div>
-                    )}
+                      {/* End Date */}
+                      {caseStudy.end_date && (
+                        <div
+                          className="single-items"
+                          data-aos="fade-up"
+                          data-aos-delay="600"
+                        >
+                          <h4>
+                            End Date: <span>{formatDate(caseStudy.end_date)}</span>
+                          </h4>
+                        </div>
+                      )}
 
-                    {/* End Date */}
-                    {caseStudy.end_date && (
-                      <div
-                        className="single-items"
-                        data-aos="fade-up"
-                        data-aos-delay="600"
-                      >
-                        <h4>
-                          End Date: <span>{formatDate(caseStudy.end_date)}</span>
-                        </h4>
-                      </div>
-                    )}
+                      {/* Start Date */}
+                      {caseStudy.start_date && (
+                        <div
+                          className="single-items"
+                          data-aos="fade-up"
+                          data-aos-delay="800"
+                        >
+                          <h4>
+                            Start Date:{" "}
+                            <span>{formatDate(caseStudy.start_date)}</span>
+                          </h4>
+                        </div>
+                      )}
 
-                    {/* Start Date */}
-                    {caseStudy.start_date && (
-                      <div
-                        className="single-items"
-                        data-aos="fade-up"
-                        data-aos-delay="800"
-                      >
-                        <h4>
-                          Start Date:{" "}
-                          <span>{formatDate(caseStudy.start_date)}</span>
-                        </h4>
-                      </div>
-                    )}
-
-                    {/* Rating */}
-                    {caseStudy.rating && (
-                      <div
-                        className="single-items"
-                        data-aos="fade-up"
-                        data-aos-delay="600"
-                      >
-                        <h4>
-                          Rating:
-                          <span>{renderRating(caseStudy.rating)}</span>
-                        </h4>
-                      </div>
-                    )}
+                      {/* Rating */}
+                      {caseStudy.rating && (
+                        <div
+                          className="single-items"
+                          data-aos="fade-up"
+                          data-aos-delay="600"
+                        >
+                          <h4>
+                            Rating:
+                            <span>{renderRating(caseStudy.rating)}</span>
+                          </h4>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
+
+                {/* Project Image */}
+                {caseStudy.project_image && (
+                  <div className="col-xl-4">
+                    <div
+                      className="content-thumb img-custom-anim-left"
+                      data-aos="fade-up"
+                      data-aos-delay="600"
+                    >
+                      <img
+                        src={caseStudy.project_image}
+                        alt={caseStudy.title}
+
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
-
-              {/* Project Image */}
-              {caseStudy.project_image && (
-                <div className="col-xl-4">
-                  <div
-                    className="content-thumb img-custom-anim-left"
-                    data-aos="fade-up"
-                    data-aos-delay="600"
-                  >
-                    <img
-                      src={caseStudy.project_image}
-                      alt={caseStudy.title}
-                      
-                    />
-                  </div>
-                </div>
-              )}
             </div>
-          </div>
-        )}
+          )}
           {/* Summary */}
           {caseStudy.project_summary && (
             <div className="project-summery">
               <div className="content" data-aos="fade-up" data-aos-delay="600">
                 <h3 className="mb-20">Project Summary</h3>
-                <p>{caseStudy.project_summary}</p>
-                
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: caseStudy.project_summary,
+                  }}
+                />
               </div>
             </div>
           )}
@@ -326,34 +329,34 @@ export const CaseStudyDetail = () => {
                 </div>
 
                 <div className="col-xl-7">
-                  
+
                   <div className="faq-content">
-  <Accordion alwaysOpen>
+                    <Accordion alwaysOpen>
 
-    {faqs.map((faq, index) => {
-      const delay = String(300 + index * 200);
+                      {faqs.map((faq, index) => {
+                        const delay = String(300 + index * 200);
 
-      return (
-        <Accordion.Item
-          eventKey={index.toString()}
-          key={index}
-          className="mb-3"
-          data-aos="fade-up"
-          data-aos-delay={delay}
-        >
-          <Accordion.Header>
-            {faq.question || `Question ${index + 1}`}
-          </Accordion.Header>
+                        return (
+                          <Accordion.Item
+                            eventKey={index.toString()}
+                            key={index}
+                            className="mb-3"
+                            data-aos="fade-up"
+                            data-aos-delay={delay}
+                          >
+                            <Accordion.Header>
+                              {faq.question || `Question ${index + 1}`}
+                            </Accordion.Header>
 
-          <Accordion.Body>
-            {faq.answer || "Answer coming soon"}
-          </Accordion.Body>
-        </Accordion.Item>
-      );
-    })}
+                            <Accordion.Body>
+                              {faq.answer || "Answer coming soon"}
+                            </Accordion.Body>
+                          </Accordion.Item>
+                        );
+                      })}
 
-  </Accordion>
-</div>
+                    </Accordion>
+                  </div>
                 </div>
               </div>
 
