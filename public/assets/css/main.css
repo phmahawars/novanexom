@@ -12205,7 +12205,8 @@ ul.menu-thumb li a {
     color: var(--theme);
     border-radius: 50%;
     margin: 0 auto;
-    position: relative
+    position: relative;
+    font-size:30px;
 }
 
 .service-details .single-sidebar-content .contact-text .icon:before {
