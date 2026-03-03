@@ -239,7 +239,7 @@ export const ServiceDetail = () => {
                   </div>
 
                   <h4>
-                    <a href="tel:+444005410555">+(44)4-00-5410-555</a>
+                    <a href="tel:+917905706350">+91 7905706350</a>
                   </h4>
                   <h5>Call us now</h5>
                 </div>
