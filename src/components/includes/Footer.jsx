@@ -39,7 +39,7 @@ export const Footer = () => {
           <div className="wraper">
             <h2 className="">
               <span>New Creative Ideas</span> <br /> send me an e-mail –{" "}
-              <span className="color">info@example.com</span>
+              <span className="color">info@novanexom.com</span>
             </h2>
             <Link
               href="/contact"
@@ -98,38 +98,32 @@ export const Footer = () => {
             <h2 className="title">Quick Link</h2>
             <ul>
               <li>
-                <a href="/service-single/Quran-Memorization">
-                  Content Marketing
+                <a href="/about/">
+                  About us
                 </a>
               </li>
               <li>
-                <a href="/service-single/Special-Child-Care12">
-                  E-mail Marketing
+                <a href="/services/">
+                 Services
                 </a>
               </li>
               <li>
-                <a href="/service-single/Quran-Memorization21">
-                  Webflow Development
+                <a href="/case-studies/">
+                  Case Studies
                 </a>
               </li>
               <li>
-                <a href="/service-single/Marketing12">Social Media Marketing</a>
+                <a href="/blogs/">Blogs</a>
               </li>
-              <li>
-                <a href="/service-single/Quran-Memorization214">
-                  Digital Marketing
-                </a>
-              </li>
+             
             </ul>
           </div>
           <div className="item fade_bottom">
             <h2 className="title">Contact info</h2>
             <ul>
-              <li>Germany —</li>
-              <li>785 15h Street,</li>
-              <li>Office 478 Berlin, De 81566</li>
-              <li>contact@bjorn.com</li>
-              <li>+1300 877 503</li>
+              <li>B-23 Second Floor, Sector 63, Noida, UP - 201301</li>
+              <li><Link to={'mailto:info@novanexom.com'}>info@novanexom.com</Link></li>
+              <li><Link to={'tel:+91 7905706350'}>+91 7905706350</Link></li>
             </ul>
           </div>
         </div>
