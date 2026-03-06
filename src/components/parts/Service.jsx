@@ -154,9 +154,11 @@ export const Service = () => {
                     
                     {/* Service Description */}
                     <div className="content">
-                      <p>
-                        {service.expect || 'Service description coming soon'}
-                      </p>
+                       <div
+                          dangerouslySetInnerHTML={{
+                            __html: service.expect || 'Service description coming soon'
+                          }}
+                        />
                     </div>
                   </div>
                 ))}
