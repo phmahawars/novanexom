@@ -180,7 +180,8 @@ export const ServiceDetail = () => {
             </div>
             {/* LEFT SIDEBAR */}
             <div className="col-xl-4">
-              <div
+              <aside className='service-sidebar position-sticky'>
+                  <div
                 className="service-details-info"
                 data-aos="fade-up"
                 data-aos-delay="600"
@@ -194,7 +195,7 @@ export const ServiceDetail = () => {
                     {allServices.length > 0 ? (
                       allServices.map((item) => (
                         <li key={item.id}>
-                          <Link to={`/service/${item.id}`}>
+                          <Link to={`/service/${item.slug}`}>
                             {item.title}
                             <span>
                               {/* SVG ICON */}
@@ -240,6 +241,8 @@ export const ServiceDetail = () => {
                   <h5>Call us now</h5>
                 </div>
               </div>
+
+              </aside>
             </div>
           </div>
         </div>
