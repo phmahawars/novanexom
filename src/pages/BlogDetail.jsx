@@ -79,7 +79,7 @@ export default function BlogDetails() {
     return (
       <>
         <Breadcrumb title={"Blog Detail"} />
-        <div className="blog blog-page fix">
+        <div className="blog blog-page ">
           <div className="container">
             <div className="text-center py-5">
               <div className="spinner-border" role="status">
@@ -97,7 +97,7 @@ export default function BlogDetails() {
     return (
       <>
         <Breadcrumb title={"Blog Detail"} />
-        <div className="blog blog-page fix">
+        <div className="blog blog-page ">
           <div className="container">
             <div className="alert alert-danger" role="alert">
               {error || "Blog not found"}
@@ -114,7 +114,7 @@ export default function BlogDetails() {
   return (
     <>
       <Breadcrumb title={blog.title || "Blog Detail"} />
-      <div className="blog blog-page fix">
+      <div className="blog blog-page ">
         <div className="container">
           <div className="row">
             {/* Blog Content */}
@@ -169,16 +169,7 @@ export default function BlogDetails() {
                   </div>
                 )}
 
-                {/* Tags as List */}
-                {blog.tags && (
-                  <div className="content-items">
-                    <ul>
-                      {blog.tags.split(",").map((tag, index) => (
-                        <li key={index}>{tag.trim()}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+               
               </div>
 
               
@@ -186,7 +177,7 @@ export default function BlogDetails() {
 
             {/* Sidebar */}
             <div className="col-xl-4">
-              <div className="main-sidebar2">
+              <div className="main-sidebar2 position-sticky">
                 
 
                 {/* Recent Posts */}
@@ -204,7 +195,7 @@ export default function BlogDetails() {
                         <div className="recent-items" key={post.id}>
                           <div className="recent-thumb">
                             <img
-                              className='w-100'
+                              className=''
                               src={post.image_url || "/assets/images/blog/blogPostThumb1_2.png"}
                               alt={post.title}
                               onError={(e) => {
