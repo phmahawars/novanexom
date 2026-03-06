@@ -117,7 +117,7 @@ export const Blog = () => {
 
                         <div className="single_blog_info_body">
                           <h2>
-                            <Link to={`/blogs/${blog.slug}`}>
+                            <Link to={`/blog/${blog.slug}`}>
                               {blog.title || "Untitled Blog"}
                             </Link>
                           </h2>
@@ -125,11 +125,10 @@ export const Blog = () => {
                       </div>
 
                       <div className="single_blog_thumb">
-                        <Link to={`/blogs/${blog.slug}`}>
+                        <Link to={`/blog/${blog.slug}`}>
                           <img
-                            src={blog.image}
-                            alt={blog.title || "Blog thumbnail"}
-                            
+                            src={blog.image_url}
+                            alt={blog.title || "Blog thumbnail"}                            
                           />
                         </Link>
                       </div>
@@ -137,7 +136,7 @@ export const Blog = () => {
                       <div className="single_blog_button btn-wrapper d-flex justify-content-md-end">
                         <Link
                           className="theme-btn-2"
-                          to={`/blogs/${blog.slug}`}
+                          to={`/blog/${blog.slug}`}
                         >
                           Read Now{" "}
                           <i className="fa fa-long-arrow-right"></i>
