@@ -1,13 +1,42 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { getCaseStudies } from '../../lib/api'
+import { Link } from 'react-router-dom'
 
 export const Project = () => {
+  const [caseStudy, setCaseStudy] = useState([])
+        const [loading, setLoading] = useState(true)
+        const [error, setError] = useState(null)
+        const [activeIndex, setActiveIndex] = useState(0)
+        
+        
+        useEffect(() => {
+          fetchCaseStudy()
+        }, [])
+      
+        const fetchCaseStudy = async () => {
+          setLoading(true)
+          setError(null)
+          try {
+            const response = await getCaseStudies()
+            
+            if (response.status && response.data) {
+              // Limit to 6 case study for home page
+              setCaseStudy(response.data.data)
+              setActiveIndex(0)
+            }
+          } catch (err) {
+            setError('Failed to load Case study')
+            console.error('Error fetching services:', err)
+          } finally {
+            setLoading(false)
+          }
+        }
   return (
     <section className="project-section">
   <div className="project-container-wrapper style1 section-padding fix">
-    <div className="container">
-      <div className="project-wrapper style1">
-
-        <div className="section-title mx-auto text-center">
+          <div className="container">
+            <div className="project-wrapper style1">
+              <div className="section-title mx-auto text-center">
           <h2
             className="title mxw-750 mx-auto"
             data-aos="fade-up"
@@ -24,142 +53,62 @@ export const Project = () => {
             Get top-rated IT outsourcing for building customized digital systems to help your business move fast, expand brand visibility, ownership, and control. Our websites, apps, software, automation, and marketing solutions keep you one step ahead. Every design reflects decision, clarity, mobility, and functionality.
           </div>
         </div>
+               {/* Loading State */}
+                  {loading && (
+                    <div className="text-center py-5">
+                      <div className="spinner-border" role="status">
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                      <p className="mt-3">Loading services...</p>
+                    </div>
+                  )}
+      
+                  {/* Error State */}
+                  {error && !loading && (
+                    <div className="alert alert-danger" role="alert">
+                      {error}
+                    </div>
+                  )}
+              <div className="row g-4">
+                {caseStudy.slice(0, 4).map((caseStudy, index) => (
+                  <div className="col-xl-6 col-md-6">
+                    <div
+                      className="project-card style1"
+                      data-aos="fade-up"
+                      data-aos-delay="300"
+                    >
+                      <div className="project-thumb">
+                        <img
+                              src={caseStudy.image_url}
+                              alt={caseStudy.title}
+                              onError={(e) => {
+                                e.target.style.display = 'none'
+                              }}
+                            />
+                      </div>
+                      <div className="project-content">
+                        <div className="title-wrap">
+                          <div className="subtitle">{caseStudy.category_name}</div>
+                          <h3 className="title">
+                            <Link to={`/case-study/${caseStudy.slug}`}>{caseStudy.title}</Link>
+                          </h3>
+                        </div>
+                        <Link className="arrow-btn" to={`/case-study/${caseStudy.slug}`}>
+                          <i className="fa-solid fa-arrow-right-long"></i>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                ))}
 
-        <div className="row g-4">
-          <div className="col-xl-6 col-md-6">
-            <div
-              className="project-card style1"
-              data-aos="fade-up"
-              data-aos-delay="300"
-            >
-              <div className="project-thumb">
-                <img
-                  src="/assets/images/new/Modular-Architecture.jpg"
-                  alt="thumb"
-                />
-              </div>
-              <div className="project-content">
-                <div className="title-wrap">
-                  <div className="subtitle">Solutions</div>
-                  <h3 className="title">
-                    <a href="/project-details">Modular Architecture</a>
-                  </h3>
-                </div>
-                <a className="arrow-btn" href="/project-details">
-                  <i className="fa-solid fa-arrow-right-long"></i>
-                </a>
-              </div>
-            </div>
-          </div>
+                
 
-          <div className="col-xl-6 col-md-6">
-            <div
-              className="project-card style1"
-              data-aos="fade-up"
-              data-aos-delay="600"
-            >
-              <div className="project-thumb">
-                <img
-                  src="/assets/images/new/End-to-End-Security.jpg"
-                  alt="thumb"
-                />
-              </div>
-              <div className="project-content">
-                <div className="title-wrap">
-                  <div className="subtitle">Solutions</div>
-                  <h3 className="title">
-                    <a href="/project-details">End-to-End Security</a>
-                  </h3>
-                </div>
-                <a className="arrow-btn" href="/project-details">
-                  <i className="fa-solid fa-arrow-right-long"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-xl-6 col-md-6">
-            <div
-              className="project-card style1"
-              data-aos="fade-up"
-              data-aos-delay="800"
-            >
-              <div className="project-thumb">
-                <img
-                  src="/assets/images/new/DevOps-&-Compliance.jpg"
-                  alt="thumb"
-                />
-              </div>
-              <div className="project-content">
-                <div className="title-wrap">
-                  <div className="subtitle">Solutions</div>
-                  <h3 className="title">
-                    <a href="/project-details">DevOps & Compliance</a>
-                  </h3>
-                </div>
-                <a className="arrow-btn" href="/project-details">
-                  <i className="fa-solid fa-arrow-right-long"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-xl-3 col-md-6">
-            <div
-              className="project-card style1"
-              data-aos="fade-up"
-              data-aos-delay="300"
-            >
-              <div className="project-thumb">
-                <img
-                  src="/assets/images/new/Systematic-Integration.jpg"
-                  alt="thumb"
-                />
-              </div>
-              <div className="project-content style2">
-                <div className="title-wrap">
-                  <div className="subtitle">Solutions</div>
-                  <h3 className="title">
-                    <a href="/project-details">Systematic Integration</a>
-                  </h3>
-                </div>
-                <a className="arrow-btn" href="/project-details">
-                  <i className="fa-solid fa-arrow-right-long"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-xl-3 col-md-6">
-            <div
-              className="project-card style1"
-              data-aos="fade-up"
-              data-aos-delay="600"
-            >
-              <div className="project-thumb">
-                <img
-                  src="/assets/images/new/Cloud-&-Automation.jpg"
-                  alt="thumb"
-                />
-              </div>
-              <div className="project-content style2">
-                <div className="title-wrap">
-                  <div className="subtitle">Solutions</div>
-                  <h3 className="title">
-                    <a href="/project-details">Cloud & Automation</a>
-                  </h3>
-                </div>
-                <a className="arrow-btn" href="/project-details">
-                  <i className="fa-solid fa-arrow-right-long"></i>
-                </a>
+                
               </div>
             </div>
           </div>
         </div>
-
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
+    
   )
 }
