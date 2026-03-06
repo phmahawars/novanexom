@@ -125,7 +125,7 @@ export const CaseStudyDetail = () => {
         <div className="container">
 
           {/* Section 1: Hero with Content */}
-          <div className="project-details-info">
+          <div className="project-details-info mb-2">
             <div className="row gx-60 gy-6">
               {/* Featured Image */}
               <div className="col-xl-5">
@@ -174,8 +174,10 @@ export const CaseStudyDetail = () => {
 
           {/* Section 2: Project Information */}
           {caseStudy.project_info && (
-            <div className="project-details-info">
-              <div className="row gx-60 gy-6">
+            <div className="project-details-info mb-2">
+              <div className="row gx-60 gy-1">
+                {/* Project Image */}
+                
                 {/* Project Details */}
                 <div className="col-xl-8">
                   <div className="project-details-content">
@@ -192,6 +194,25 @@ export const CaseStudyDetail = () => {
                       />
                     </div>
 
+                  </div>
+                </div>
+                {caseStudy.project_image && (
+                  <div className="col-xl-4">
+                    <div
+                      className="content-thumb img-custom-anim-left"
+                      data-aos="fade-up"
+                      data-aos-delay="600"
+                    >
+                      <img
+                        src={caseStudy.project_image_url}
+                        alt={caseStudy.title}
+
+                      />
+                    </div>
+                  </div>
+                )}        
+                <div className="col-xl-12">
+                  <div className="project-details-content">
 
                     <div className="items-wrapper">
                       {/* Category */}
@@ -263,31 +284,14 @@ export const CaseStudyDetail = () => {
                     </div>
                   </div>
                 </div>
-
-                {/* Project Image */}
-                {caseStudy.project_image && (
-                  <div className="col-xl-4">
-                    <div
-                      className="content-thumb img-custom-anim-left"
-                      data-aos="fade-up"
-                      data-aos-delay="600"
-                    >
-                      <img
-                        src={caseStudy.project_image_url}
-                        alt={caseStudy.title}
-
-                      />
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           )}
           {/* Summary */}
           {caseStudy.project_summary && (
-            <div className="project-summery">
+            <div className="project-summery mt-3">
               <div className="content" data-aos="fade-up" data-aos-delay="600">
-                <h3 className="mb-20">Project Summary</h3>
+                <h2 className="mb-20">Project Summary</h2>
                 <div
                   dangerouslySetInnerHTML={{
                     __html: caseStudy.project_summary,
