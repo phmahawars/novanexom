@@ -272,8 +272,8 @@ export const ServiceDetail = () => {
       <div className="row gy-5">
 
         {/* Left Image */}
-        <div className="col-xl-5">
-          <div className="content-thumb text-center">
+        <div className="col-xl-5 postion-relative">
+          <div className="content-thumb text-center position-sticky top-0">
             <img
               src="/assets/images/services/Product-Design-2.png"
               alt="faq"
