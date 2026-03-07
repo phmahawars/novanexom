@@ -275,7 +275,7 @@ export const ServiceDetail = () => {
         <div className="col-xl-5">
           <div className="content-thumb text-center">
             <img
-              src="/assets/images/faq/faqThumb.png"
+              src="/assets/images/services/Product-Design-2.png"
               alt="faq"
             />
           </div>
