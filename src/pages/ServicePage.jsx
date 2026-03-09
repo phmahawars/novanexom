@@ -53,7 +53,7 @@ export const ServicePage = () => {
 
             {/* Loading State */}
             {loading && (
-              <div className="text-center py-5">
+              <div className="text-center py-5 vh-100">
                 <div className="spinner-border" role="status">
                   <span className="sr-only">Loading...</span>
                 </div>

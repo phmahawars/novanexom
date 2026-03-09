@@ -49,7 +49,7 @@ export const ServiceDetail = () => {
     return (
       <>
         <Breadcrumb title={'Service Detail'} />
-        <div className="service-details">
+        <div className="service-details vh-100">
           <div className="container">
             <div className="text-center py-5">
               <div className="spinner-border" role="status">

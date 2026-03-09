@@ -36,7 +36,7 @@ export const CaseStudies = () => {
       return (
         <>
           <Breadcrumb title={"Case Studies"} />
-          <section className="service style1 section-padding pt-0">
+          <section className="service style1 section-padding pt-0 vh-100">
             <div className="service-container-wrapper style1">
               <div className="container">
                 <div className="text-center py-5">

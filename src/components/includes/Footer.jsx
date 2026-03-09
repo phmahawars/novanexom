@@ -138,7 +138,7 @@ export const Footer = () => {
               </p>
             </div>
             <div className="col-lg-3 col-12 text-center">
-              <p>Saturday - Thursday</p>
+              <p>Monday - Friday</p>
             </div>
             <div className="col-lg-4 col-12">
               <ul className="widget-social">

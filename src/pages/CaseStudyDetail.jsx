@@ -84,7 +84,7 @@ export const CaseStudyDetail = () => {
     return (
       <>
         <Breadcrumb title={"Case Study Detail"} />
-        <div className="project-details">
+        <div className="project-details vh-100">
           <div className="container">
             <div className="text-center py-5">
               <div className="spinner-border" role="status">
