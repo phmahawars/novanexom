@@ -177,7 +177,7 @@ export const CaseStudyDetail = () => {
             <div className="project-details-info mb-2">
               <div className="row gx-60 gy-1">
                 {/* Project Image */}
-                
+
                 {/* Project Details */}
                 <div className="col-xl-8">
                   <div className="project-details-content">
@@ -210,7 +210,7 @@ export const CaseStudyDetail = () => {
                       />
                     </div>
                   </div>
-                )}        
+                )}
                 <div className="col-xl-12">
                   <div className="project-details-content">
 
