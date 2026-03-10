@@ -1,7 +1,7 @@
 // src/services/api.js
 import axios from 'axios';
 
-const API_BASE_URL = 'https://dashboard-novanexom.harshmahawar.com/api/v1';
+const API_BASE_URL = 'https://dashboard.novanexom.com/api/v1';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
