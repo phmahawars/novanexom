@@ -212,7 +212,7 @@ export default function BlogDetails() {
                               </li>
                             </ul>
                             <h6>
-                              <Link to={`/blog/${post.id}`}>
+                              <Link to={`/blog/${post.slug}`}>
                                 {post.title}
                               </Link>
                             </h6>

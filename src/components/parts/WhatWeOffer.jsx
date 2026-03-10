@@ -56,7 +56,7 @@ const WhatWeOffer = () => {
                 data-aos-delay="300"
               >
                 <img
-                  src="/assets/images/intro/whatwe.avif"
+                  src="/assets/images/intro/Our-Expertise.jpg"
                   alt="Service Thumb"
                 />
               </div>

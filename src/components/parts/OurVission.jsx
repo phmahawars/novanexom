@@ -55,7 +55,7 @@ const OurVission = () => {
                 >
                   <img
                     className='rounded'
-                    src="/assets/images/intro/aboutThunb3.png"
+                    src="/assets/images/intro/Our-Approach.jpg"
                     alt="About Thumb"
                   />
                 </div>
