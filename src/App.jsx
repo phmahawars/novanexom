@@ -5,6 +5,7 @@ import AboutPage from "./pages/About";
 import NotFound from "./pages/Notfound";
 import Aos from "aos";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { ServicePage } from "./pages/ServicePage";
 import { ServiceDetail } from "./pages/ServiceDetail";
 import CursorMaus from "./components/Cursor";
@@ -15,6 +16,12 @@ import { CaseStudyDetail } from "./pages/CaseStudyDetail";
 import { CaseStudies } from "./pages/CaseStudies";
 
 function App() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   useEffect(() => {
     Aos.init({
       duration: 1000,
