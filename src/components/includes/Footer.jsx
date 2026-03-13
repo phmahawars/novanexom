@@ -42,7 +42,7 @@ export const Footer = () => {
               <span className="color">info@novanexom.com</span>
             </h2>
             <Link
-              href="/contact"
+              to="/contact/"
               className="topbar-btn  btn-wrapper btn-move"
               data-animation="fade_from_bottom"
             >
