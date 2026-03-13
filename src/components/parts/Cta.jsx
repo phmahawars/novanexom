@@ -35,7 +35,7 @@ export const Cta = () => {
                   </a>
                 </div>
 
-                <div
+                {/* <div
                   className="video_play_btn"
                   data-aos="fade-up"
                   data-aos-delay="400"
@@ -53,7 +53,7 @@ export const Cta = () => {
                     </a>
                   </div>
                   Watch Video
-                </div>
+                </div> */}
               </div>
 
               <div
