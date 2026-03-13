@@ -52,7 +52,7 @@ export const Testimonials = () => {
 
                     <div className="testimonials_item_content">
                       <p>
-                        It was a great experience working with Novanexom. They don't just build but stay involved during the whole process. Our website, automation, and marketing stack finally work together. It feels like having an internal team that actually cares about you. Highly recommended!
+                        "Working with Tarun and his team was an exceptional experience. They brought my vision for the Purple K Investments website to life with professionalism, creativity, and attention to detail. From the layout to the messaging, everything was built with care and clarity. Their support made the entire process smooth and efficient—I couldn’t be more pleased with the final result."
                       </p>
 
                       <div className="profile">
@@ -61,8 +61,8 @@ export const Testimonials = () => {
                           alt="profile"
                         /> */}
                         <div className="profile_info">
-                          <h4>Helen Suarej</h4>
-                          <span>Startup Founder</span>
+                          <h4>Danon Vaughn</h4>
+                          <span>Founder of Purple K Investments</span>
                         </div>
                       </div>
                     </div>
