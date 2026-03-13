@@ -56,10 +56,10 @@ export const Testimonials = () => {
                       </p>
 
                       <div className="profile">
-                        <img
+                        {/* <img
                           src="/assets/images/profile/profileImg2.png"
                           alt="profile"
-                        />
+                        /> */}
                         <div className="profile_info">
                           <h4>Helen Suarej</h4>
                           <span>Startup Founder</span>
@@ -86,10 +86,10 @@ export const Testimonials = () => {
                       </p>
 
                       <div className="profile">
-                        <img
+                        {/* <img
                           src="/assets/images/profile/profileImg2.png"
                           alt="profile"
-                        />
+                        /> */}
                         <div className="profile_info">
                           <h4>Ryan Malad</h4>
                           <span>Growth Manager</span>
