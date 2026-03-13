@@ -121,7 +121,7 @@ export const Footer = () => {
           <div className="item fade_bottom">
             <h2 className="title">Contact info</h2>
             <ul>
-              <li>B-23 Second Floor, Sector 63, Noida, UP - 201301</li>
+              <li>Second Floor, H.IN.KH.NO 293, Khersingh Estate, Westened Marg, Khersingh Estate, Saidulajab, New Delhi</li>
               <li><Link to={'mailto:info@novanexom.com'}>info@novanexom.com</Link></li>
               <li><Link to={'tel:+91 7905706350'}>+91 7905706350</Link></li>
             </ul>
