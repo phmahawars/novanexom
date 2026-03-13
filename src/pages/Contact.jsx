@@ -24,7 +24,7 @@ export default function ContactPage() {
       setContactInfo({
         emails: ["info@novanexom.com"],
         phones: [{ number: "+91 7905706350", label: "Main" }],
-        locations: ["B-23 Second Floor, Sector 63, Noida, UP - 201301"],
+        locations: ["Second Floor, H.IN.KH.NO 293, Khersingh Estate, Westened Marg, Khersingh Estate, Saidulajab, New Delhi"],
       });
     } catch (err) {
       console.error("Error fetching contact info:", err);
