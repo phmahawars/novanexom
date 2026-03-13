@@ -30,7 +30,7 @@ const AboutNew = (props) => {
                     </div>
                     <div className="bottom-content" data-aos="fade-up" data-aos-delay="200">
                         <p>At NovaNexom, we build future-ready websites, applications, and e-commerce platforms that move as fast as your ambition. We keep your brand visible, responsive, and competitive across every digital touchpoint. Our expert IT outsourcing, product design, and data services build digital systems that efficiently convey your brand ideas, captivate your audience, and fuel growth momentum.</p>
-                        <Link href="/contact" className="theme-btn">
+                        <Link to="/contact/" className="theme-btn">
                             Contact Us
                             <i className="fa-solid fa-arrow-right"></i></Link>
                     </div>
