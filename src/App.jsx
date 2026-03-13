@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import AboutPage from "./pages/About";
 import NotFound from "./pages/Notfound";
 import Aos from "aos";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { ServicePage } from "./pages/ServicePage";
 import { ServiceDetail } from "./pages/ServiceDetail";
@@ -16,11 +16,15 @@ import { CaseStudyDetail } from "./pages/CaseStudyDetail";
 import { CaseStudies } from "./pages/CaseStudies";
 
 function App() {
-  const { pathname } = useLocation();
+   const location = useLocation();
+  const prevPath = useRef(location.pathname);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    if (prevPath.current !== location.pathname) {
+      window.scrollTo(0, 0);
+      prevPath.current = location.pathname;
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     Aos.init({
