@@ -98,22 +98,22 @@ export const Footer = () => {
             <h2 className="title">Quick Link</h2>
             <ul>
               <li>
-                <Link to="/about/">
+                <a to="/about/">
                   About us
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/services/">
+                <a to="/services/">
                  Services
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/case-studies/">
+                <a to="/case-studies/">
                   Case Studies
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/blogs/">Blogs</Link>
+                <a to="/blogs/">Blogs</a>
               </li>
              
             </ul>
