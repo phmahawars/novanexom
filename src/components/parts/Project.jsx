@@ -90,12 +90,12 @@ export const Project = () => {
                         <div className="title-wrap">
                           <div className="subtitle">{caseStudy.category_name}</div>
                           <h3 className="title">
-                            <Link to={`/case-study/${caseStudy.slug}`}>{caseStudy.title}</Link>
+                            <a href={`/case-study/${caseStudy.slug}`}>{caseStudy.title}</a>
                           </h3>
                         </div>
-                        <Link className="arrow-btn" to={`/case-study/${caseStudy.slug}`}>
+                        <a className="arrow-btn" href={`/case-study/${caseStudy.slug}`}>
                           <i className="fa-solid fa-arrow-right-long"></i>
-                        </Link>
+                        </a>
                       </div>
                     </div>
                   </div>

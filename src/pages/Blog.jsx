@@ -203,9 +203,9 @@ export const Blog = () => {
                               </li>
                             </ul>
                             <h6>
-                              <Link to={`/blog/${blog.slug}`}>
+                              <a href={`/blog/${blog.slug}`}>
                                 {blog.title}
-                              </Link>
+                              </a>
                             </h6>
                           </div>
                         </div>

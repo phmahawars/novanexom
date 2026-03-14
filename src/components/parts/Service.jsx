@@ -105,9 +105,9 @@ export const Service = () => {
                     
                     {/* Service Title */}
                     <h3>
-                      <Link to={`/service/${service.slug}`}>
+                      <a href={`/service/${service.slug}`}>
                         {service.title}
-                      </Link>
+                      </a>
                     </h3>
                     
                     {/* Service Description */}
@@ -147,9 +147,9 @@ export const Service = () => {
                     
                     {/* Service Title */}
                     <h3>
-                      <Link to={`/service/${service.slug}`}>
+                      <a href={`/service/${service.slug}`}>
                         {service.title}
-                      </Link>
+                      </a>
                     </h3>
                     
                     {/* Service Description */}

@@ -21,31 +21,31 @@ const Header = () => {
               
               {/* Logo */}
               <div className="logo">
-                <Link to="/" className="header-logo">
+                <a href="/" className="header-logo">
                   <img
                     src="/assets/images/logo/white-logo-400.png"
                     alt="logo-img"
                   />
-                </Link>
+                </a>
               </div>
               <div className="d-flex align-items-center gap-4">
                 
               {/* Desktop Menu */}
               <nav className="d-none d-xl-block">
                 <ul className="d-flex list-unstyled mb-0 gap-4 menu-thumb">
-                  <li><Link to="/">Home</Link></li>
-                  <li><Link to="/about">About Us</Link></li>
-                  <li><Link to="/services">Services</Link></li>
-                  <li><Link to="/case-studies">Case Studies</Link></li>
-                  <li><Link to="/blogs">Blogs</Link></li>
-                  <li><Link to="/contact">Contact</Link></li>
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/about">About Us</a></li>
+                  <li><a href="/services">Services</a></li>
+                  <li><a href="/case-studies">Case Studies</a></li>
+                  <li><a href="/blogs">Blogs</a></li>
+                  <li><a href="/contact">Contact</a></li>
                 </ul>
               </nav>
 
               {/* Contact Button (Desktop) */}
-              <Link to="/contact" className="theme-btn d-none d-md-block">
+              <a href="/contact" className="theme-btn d-none d-md-block">
                 Contact Us
-              </Link>
+              </a>
 
               {/* Hamburger Button (Mobile) */}
               <div
@@ -62,12 +62,12 @@ const Header = () => {
             {isOpen && (
               <div className="mobile-menu d-xl-none mt-3">
                 <ul className="list-unstyled d-flex flex-column gap-3">
-                  <li><Link to="/" onClick={closeMenu}>Home</Link></li>
-                  <li><Link to="/about" onClick={closeMenu}>About Us</Link></li>
-                  <li><Link to="/services" onClick={closeMenu}>Services</Link></li>
-                  <li><Link to="/case-studies" onClick={closeMenu}>Case Studies</Link></li>
-                  <li><Link to="/blogs" onClick={closeMenu}>Blogs</Link></li>
-                  <li><Link to="/contact" onClick={closeMenu}>Contact</Link></li>
+                  <li><a href="/" onClick={closeMenu}>Home</a></li>
+                  <li><a href="/about" onClick={closeMenu}>About Us</a></li>
+                  <li><a href="/services" onClick={closeMenu}>Services</a></li>
+                  <li><a href="/case-studies" onClick={closeMenu}>Case Studies</a></li>
+                  <li><a href="/blogs" onClick={closeMenu}>Blogs</a></li>
+                  <li><a href="/contact" onClick={closeMenu}>Contact</a></li>
                 </ul>
               </div>
             )}

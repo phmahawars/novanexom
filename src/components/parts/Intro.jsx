@@ -127,8 +127,8 @@ const Intro = () => {
                             </div>
                         </div>
                         <div className="" data-aos="fade-up" data-aos-delay="200">
-                            <Link onClick={ClickHandler} to="/about" className="btn-wrapper btn-move">
-                            <i className="fa-solid fa-arrow-right"></i></Link>
+                            <a onClick={ClickHandler} href="/about" className="btn-wrapper btn-move">
+                            <i className="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
 

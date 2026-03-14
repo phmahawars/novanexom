@@ -107,9 +107,9 @@ export const CaseStudyDetail = () => {
             <div className="alert alert-danger" role="alert">
               {error || "Case study not found"}
             </div>
-            <Link to="/case-studies" className="btn btn-primary mt-3">
+            <a href="/case-studies" className="btn btn-primary mt-3">
               <i className="fa-solid fa-arrow-left"></i> Back to Case Studies
-            </Link>
+            </a>
           </div>
         </div>
       </>
@@ -376,9 +376,9 @@ export const CaseStudyDetail = () => {
           <p className="mb-4 text-muted">
             Let us help you achieve your business goals with our expert solutions.
           </p>
-          <Link to="/contact" className="btn btn-primary btn-lg">
+          <a href="/contact" className="btn btn-primary btn-lg">
             Get In Touch <i className="fa-solid fa-arrow-right"></i>
-          </Link>
+          </a>
         </div>
       </div>
     </>

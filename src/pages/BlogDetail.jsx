@@ -102,9 +102,9 @@ export default function BlogDetails() {
             <div className="alert alert-danger" role="alert">
               {error || "Blog not found"}
             </div>
-            <Link to="/blogs" className="btn btn-primary mt-3">
+            <a href="/blogs" className="btn btn-primary mt-3">
               <i className="fa-solid fa-arrow-left"></i> Back to Blogs
-            </Link>
+            </a>
           </div>
         </div>
       </>
@@ -212,9 +212,9 @@ export default function BlogDetails() {
                               </li>
                             </ul>
                             <h6>
-                              <Link to={`/blog/${post.slug}`}>
+                              <a href={`/blog/${post.slug}`}>
                                 {post.title}
-                              </Link>
+                              </a>
                             </h6>
                           </div>
                         </div>

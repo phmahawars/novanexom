@@ -69,11 +69,11 @@ export const Blog = () => {
                 data-aos-delay="300"
               >
                 <div className="btn-wrapper">
-                  <Link to="/blogs">
+                  <a href="/blogs">
                     <span className="theme-btn">
                       View All <i className="fa fa-long-arrow-right"></i>
                     </span>
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>
@@ -117,30 +117,30 @@ export const Blog = () => {
 
                         <div className="single_blog_info_body">
                           <h2>
-                            <Link to={`/blog/${blog.slug}`}>
+                            <a href={`/blog/${blog.slug}`}>
                               {blog.title || "Untitled Blog"}
-                            </Link>
+                            </a>
                           </h2>
                         </div>
                       </div>
 
                       <div className="single_blog_thumb">
-                        <Link to={`/blog/${blog.slug}`}>
+                        <a href={`/blog/${blog.slug}`}>
                           <img
                             src={blog.image_url}
                             alt={blog.title || "Blog thumbnail"}                            
                           />
-                        </Link>
+                        </a>
                       </div>
 
                       <div className="single_blog_button btn-wrapper d-flex justify-content-md-end">
-                        <Link
+                        <a
                           className="theme-btn-2"
                           to={`/blog/${blog.slug}`}
                         >
                           Read Now{" "}
                           <i className="fa fa-long-arrow-right"></i>
-                        </Link>
+                        </a>
                       </div>
                     </div>
                   );
