@@ -82,18 +82,16 @@ export const Blog = () => {
                 {/* Blog Posts */}
                 {!loading && blogs.length > 0 && (
                   blogs.map((blog) => (
-                    
-                    
                     <div className="single-blog-post" key={blog.id}>
                       <div className="post-featured-thumb">
-                        <Link to={`/blog/${blog.slug}`}>
+                        <a href={`/blog/${blog.slug}`}>
                         <img 
                         className='w-100'
                           src={blog.image_url || '/assets/images/blog/blogThumb1_2.png'} 
                           alt={blog.title}
                           
                         />
-                        </Link>
+                        </a>
                         <div className="content-date">
                           <h4>{formatDate(blog.created_at)}</h4>
                         </div>
@@ -107,16 +105,16 @@ export const Blog = () => {
 
                       <div className="post-content">
                         <h3>
-                          <Link to={`/blog/${blog.slug}`}>
+                          <a href={`/blog/${blog.slug}`}>
                             {blog.title}
-                          </Link>
+                          </a>
                         </h3>
                         <p>
                           {blog.excerpt || blog.description?.replace(/<[^>]*>/g, '').substring(0, 150) + '...'}
                         </p>
-                        <Link to={`/blog/${blog.slug}`}>
+                        <a href={`/blog/${blog.slug}`}>
                           Read More <i className="fa-solid fa-arrow-right"></i>
-                        </Link>
+                        </a>
                       </div>
                     </div>
                   ))

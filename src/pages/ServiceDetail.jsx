@@ -72,9 +72,9 @@ export const ServiceDetail = () => {
             <div className="alert alert-danger" role="alert">
               {error || 'Service not found'}
             </div>
-            <Link to="/services" className="btn btn-primary mt-3">
+            <a href="/services" className="btn btn-primary mt-3">
               <i className="fa-solid fa-arrow-left"></i> Back to Services
-            </Link>
+            </a>
           </div>
         </div>
       </>
@@ -170,9 +170,9 @@ export const ServiceDetail = () => {
 
                   {/* CTA Button */}
                   <div style={{ marginTop: '30px' }}>
-                    <Link to="/contact" className="btn btn-primary btn-lg">
+                    <a href="/contact" className="btn btn-primary btn-lg">
                       Get Started <i className="fa-solid fa-arrow-right"></i>
-                    </Link>
+                    </a>
                   </div>
 
                 </div>
@@ -195,7 +195,7 @@ export const ServiceDetail = () => {
                     {allServices.length > 0 ? (
                       allServices.map((item) => (
                         <li key={item.id}>
-                          <Link to={`/service/${item.slug}`}>
+                          <a href={`/service/${item.slug}`}>
                             {item.title}
                             <span>
                               {/* SVG ICON */}
@@ -204,7 +204,7 @@ export const ServiceDetail = () => {
                                 <path d="M8.37133 8.00011..." fill="#3C2BFF" />
                               </svg>
                             </span>
-                          </Link>
+                          </a>
                         </li>
                       ))
                     ) : (

@@ -103,17 +103,17 @@ export const Footer = () => {
                 </a>
               </li>
               <li>
-                <a to="/services/">
+                <a href="/services/">
                  Services
                 </a>
               </li>
               <li>
-                <a to="/case-studies/">
+                <a href="/case-studies/">
                   Case Studies
                 </a>
               </li>
               <li>
-                <a to="/blogs/">Blogs</a>
+                <a href="/blogs/">Blogs</a>
               </li>
              
             </ul>
