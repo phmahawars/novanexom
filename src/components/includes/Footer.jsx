@@ -145,7 +145,7 @@ export const Footer = () => {
                 {/* <li><Link href="#"><i class="fa-brands fa-facebook-f"></i></Link></li>
                 <li><Link href="#"><i className="fa-brands fa-twitter"></i></Link></li>
                 <li><Link href="#"><i className="fa-brands fa-instagram"></i></Link></li> */}
-                <li><Link href="https://www.linkedin.com/company/novanexom-technologies/"><i className="fa-brands fa-linkedin"></i></Link></li>                
+                <li><Link to="https://www.linkedin.com/company/novanexom-technologies/"><i className="fa-brands fa-linkedin"></i></Link></li>                
               </ul>
             </div>
           </div>
