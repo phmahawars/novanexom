@@ -133,8 +133,7 @@ export const Footer = () => {
           <div className="row align-items-center g-0">
             <div className="col-lg-5 col-12">
               <p className="copyright">
-                Copyright &copy; <span>2026</span> Novanexom by All rights
-                reserved.
+                &copy; 2026 Novanexom | Designed & Developed by <a href="https://www.harshmahawar.com" target="_blank">Harsh Mahawar</a>
               </p>
             </div>
             <div className="col-lg-3 col-12 text-center">
