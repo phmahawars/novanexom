@@ -7095,13 +7095,13 @@ ul.menu-thumb li a {
 
 .footer-section-s3 .widget-social li a {
     color: #fff;
-    font-size: 12px;
+    font-size: 20px;
     font-weight: 400;
-    line-height: 32px;
+    line-height: 41px;
     border: 1px solid #292929;
     border-radius: 100px;
-    width: 32px;
-    height: 32px;
+    width: 45px;
+    height: 45px;
     display: inline-block;
     text-align: center;
     transition: all 0.3s ease-in-out;
