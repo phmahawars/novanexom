@@ -15497,7 +15497,7 @@ ul.menu-thumb li a {
     padding: 17px 24px;
     border: none;
     border-radius: var(--radius-sm);
-    background: var(--ink);
+    background: #3396f3;
     color: var(--warm-white);
     font-family: var(--font-body);
     font-size: 14px;
