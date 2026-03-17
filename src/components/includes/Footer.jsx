@@ -123,7 +123,7 @@ export const Footer = () => {
             <ul>
               <li>Second Floor, H.IN.KH.NO 293, Khersingh Estate, Westened Marg, Khersingh Estate, Saidulajab, New Delhi</li>
               <li><Link to={'mailto:info@novanexom.com'}>info@novanexom.com</Link></li>
-              <li><Link to={'tel:+91 7905706350'}>+91 7905706350</Link></li>
+              <li><Link to={'tel:+1 5123608861'}>+1 5123608861</Link></li>
             </ul>
           </div>
         </div>
